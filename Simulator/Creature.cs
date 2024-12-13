@@ -9,7 +9,7 @@
     using System.Xml.Linq;
 
 namespace Simulator;
-public class Creature
+public abstract class Creature
 {
     private string _name = "Unknown";
     private int _level = 1;
@@ -61,7 +61,7 @@ public class Creature
             _level++;
     }
     
-    public void SayHi() =>
+    public virtual void SayHi() =>
         Console.WriteLine($"Hi! I'm {Name}, level {Level}.");
     public string Info => $"Name: {Name}, Level: {Level}";
 
@@ -86,4 +86,6 @@ public class Creature
 
         Go(parsedDirections);
     }
+
+    public abstract int Power { get; }
 }
