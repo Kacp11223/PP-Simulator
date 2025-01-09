@@ -30,15 +30,13 @@ public class Elf : Creature
     {
         singSum++;
 
-        Console.WriteLine($"{Name} is singing.");
-
         if (singSum % 3 == 0 && agility < 10)
         {
             agility++;
         }
     }
 
-    public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}.");
+    public override string Greeting() => ($"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}.");
 
     public override string Info => $"{Name} [{Level}][{Agility}]";
 }

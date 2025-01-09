@@ -1,6 +1,7 @@
 ﻿using Simulator.Maps;
+using Simulator;
 
-namespace Simulator;
+namespace Runner;
 
 internal class Program
 {
@@ -8,7 +9,7 @@ internal class Program
     {
         Console.WriteLine("Starting Simulator!\n");
         Point p = new(10, 25);
-        Console.WriteLine(p.Next(Direction.Right));          
+        Console.WriteLine(p.Next(Direction.Right));
         Console.WriteLine(p.NextDiagonal(Direction.Right));
         Lab5b();
     }
