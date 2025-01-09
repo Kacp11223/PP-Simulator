@@ -1,4 +1,6 @@
-﻿namespace Simulator;
+﻿using Simulator.Maps;
+
+namespace Simulator;
 
 internal class Program
 {
@@ -8,33 +10,37 @@ internal class Program
         Point p = new(10, 25);
         Console.WriteLine(p.Next(Direction.Right));          
         Console.WriteLine(p.NextDiagonal(Direction.Right));
-        Lab5a();
+        Lab5b();
     }
 
-    static void Lab5a()
+    static void Lab5b()
     {
         try
         {
-            // Correct rectangles
-            Rectangle r1 = new Rectangle(4, 2, 6, 6);
-            Console.WriteLine($"Rectangle {r1}");
+            // Map creation test
+            SmallSquareMap map = new SmallSquareMap(10);
+            Console.WriteLine($"Map of size: {map.Size}");
 
-            // Rectangle with invalid coordinates
-            Rectangle r2 = new Rectangle(6, 6, 4, 2);
-            Console.WriteLine($"Rectangle {r2} with switched sides");
+            // Test Exist()
+            Point inside = new Point(5, 5);
+            Point outside = new Point(-1, 10);
+            Console.WriteLine($"Point {inside} exist: {map.Exist(inside)}");  // True
+            Console.WriteLine($"Point {outside} exist: {map.Exist(outside)}"); // False
 
-            // Rectangle with given point
-            Point p1 = new Point(4, 3);
-            Console.WriteLine($"Rectangle {r1} contains point {p1}: {r1.Contains(p1)}");
+            // Test Next()
+            Point start = new Point(9, 9);
+            Point next = map.Next(start, Direction.Right);
+            Console.WriteLine($"Next point {start} to the right: {next}");  // should be (9, 9), out of bounds
 
-            // Rectangle without given point
-            Point p2 = new Point(10, 10);
-            Console.WriteLine($"Rectangle {r1} contains point {p2}: {r1.Contains(p2)}");
+            // Test NextDiagonal()
+            Point diagonalStart = new Point(5, 8);
+            Point diagonalNext = map.NextDiagonal(diagonalStart, Direction.Up);
+            Console.WriteLine($"Next point diagonally {diagonalStart} up: {diagonalNext}");
 
-            // Invalid rectangle (collinear)
-            Rectangle invalid = new Rectangle(4, 3, 4, 7);
+            // Invalid size check, should throw it
+            SmallSquareMap invalidMap = new SmallSquareMap(25);
         }
-        catch (ArgumentException ex)
+        catch (ArgumentOutOfRangeException ex)
         {
             Console.WriteLine($"Error: {ex.Message}");
         }
