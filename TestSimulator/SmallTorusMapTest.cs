@@ -9,7 +9,7 @@ using Simulator.Maps;
 
 namespace TestSimulator;
 
-public class SmallTorusMapTests
+public class SmallTorusMapTest
 {
     [Fact]
     public void Constructor_ValidSize_ShouldSetSize()

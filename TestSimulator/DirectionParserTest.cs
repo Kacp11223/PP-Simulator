@@ -7,7 +7,7 @@ using Simulator;
 
 namespace TestSimulator;
 
-public class DirectionParserTests
+public class DirectionParserTest
 {
     [Fact]
     public void Parse_ShouldParseDirectionsCorrectly()
