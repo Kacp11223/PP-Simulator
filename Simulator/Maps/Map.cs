@@ -11,6 +11,18 @@ namespace Simulator.Maps;
 /// </summary>
 public abstract class Map
 {
+    public readonly int SizeX;
+    public readonly int SizeY;
+
+    protected Map(int sizeX, int sizeY)
+    {
+        if (sizeX < 5 || sizeY < 5)
+            throw new ArgumentOutOfRangeException("Map dimensions must be at least 5");
+
+        SizeX = sizeX;
+        SizeY = sizeY;
+    }
+
     /// <summary>
     /// Check if give point belongs to the map.
     /// </summary>
@@ -34,6 +46,9 @@ public abstract class Map
     /// <param name="d">Direction.</param>
     /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);
+
+    protected bool IsInBounds(Point p) =>
+        p.X >= 0 && p.X < SizeX && p.Y >= 0 && p.Y < SizeY;
 }
 
 

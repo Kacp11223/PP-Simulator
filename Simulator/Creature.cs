@@ -14,10 +14,10 @@ public abstract class Creature
 {
     private string _name = "Unknown";
     private int _level = 1;
-    public Creature(string _name, int _level = 1)
+    public Creature(string name, int level = 1)
     {
-        Name = _name;
-        Level = _level;
+        Name = name;
+        Level = level;
     }
     public Creature()
     {
@@ -25,13 +25,11 @@ public abstract class Creature
     public string Name
     {
         get => _name;
-        
         init => _name = Validator.Shortener(value, 3, 25, '#');
     }
     public int Level
     {
         get => _level;
-
         init => _level = Validator.Limiter(value, 1, 10);
     }
     public void Upgrade()
@@ -39,15 +37,14 @@ public abstract class Creature
         if (_level < 10)
             _level++;
     }
-    
+
     public abstract string Greeting();
     public abstract string Info { get; }
 
-    public string[] Go(Direction[] directions)
+    public string[] Go(List<Direction> directions)
     {
-        var results = new string[directions.Length];
-
-        for (int i = 0; i < directions.Length; i++)
+        var results = new string[directions.Count];
+        for (int i = 0; i < directions.Count; i++)
         {
             results[i] = Go(directions[i]);
         }
@@ -59,7 +56,6 @@ public abstract class Creature
     public string[] Go(string input)
     {
         var parseDirections = DirectionParser.Parse(input);
-
         return Go(parseDirections);
     }
 
@@ -67,5 +63,6 @@ public abstract class Creature
     {
         return $"{GetType().Name.ToUpper()}: {Info}";
     }
+
     public abstract int Power { get; }
 }

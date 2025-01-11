@@ -8,10 +8,9 @@ namespace Simulator;
 
 public static class DirectionParser
 {
-    public static Direction[] Parse(string directions)
+    public static List<Direction> Parse(string directions)
     {
         var steps = new List<Direction>();
-
         foreach (var change in directions.ToUpper())
         {
             switch (change)
@@ -30,7 +29,6 @@ public static class DirectionParser
                     break;
             }
         }
-
-        return steps.ToArray();
+        return steps;
     }
 }
