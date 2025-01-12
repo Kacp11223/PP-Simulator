@@ -45,19 +45,19 @@ public class MapVisualizer
             for (int x = 0; x < _map.SizeX; x++)
             {
                 var point = new Point(x, y);
-                var creaturesAtPoint = _map.At(point);
+                var objectsAtPoint = _map.At(point);
 
-                if (creaturesAtPoint.Count > 0)
+                if (objectsAtPoint.Count > 0)
                 {
-                    if (creaturesAtPoint.Count > 1)
+                    if (objectsAtPoint.Count > 1)
                         Console.Write('X');
                     else
-                        Console.Write(creaturesAtPoint[0].GetType().Name[0]);
+                        Console.Write(objectsAtPoint[0].GetType().Name[0]);
                 }
                 else if (_map.Exist(point))
                     Console.Write(' ');
                 else
-                    Console.Write('E');
+                    Console.Write('N');
 
                 // Vertical borders between cells
                 if (x < _map.SizeX - 1)
@@ -97,7 +97,7 @@ public class MapVisualizer
         Console.WriteLine("\nLegenda:");
         Console.WriteLine("  - puste pole");
         Console.WriteLine("N - pole niedostępne");
-        Console.WriteLine("X - pole zajęte przez więcej niż 1 stwora");
-        Console.WriteLine("Pierwsza litera typu stwora (np. E dla Elf) - pole z 1 stworem");
+        Console.WriteLine("X - pole zajęte przez więcej niż 1 obiekt");
+        Console.WriteLine("Pierwsza litera typu obiektu - pole z 1 obiektem");
     }
 }

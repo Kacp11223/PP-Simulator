@@ -11,7 +11,7 @@ using System.Linq;
 using Simulator.Maps;
 
 namespace Simulator;
-public abstract class Creature
+public abstract class Creature : IMappable
 {
     private string _name = "Unknown";
     private int _level = 1;
@@ -53,13 +53,14 @@ public abstract class Creature
     public abstract string Info { get; }
     public abstract int Power { get; }
 
-    internal void SetMap(Map map, Point position)
+  
+    void IMappable.SetMap(Map map, Point position)
     {
         _currentMap = map;
         _position = position;
     }
 
-    public string Go(Direction direction)
+    string IMappable.Go(Direction direction)
     {
         if (_currentMap == null || _position == null)
             return "Can't move - not on any map";
