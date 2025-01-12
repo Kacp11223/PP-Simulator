@@ -20,7 +20,7 @@ internal class Program
         {
             // Map creation test
             SmallSquareMap map = new SmallSquareMap(10);
-            Console.WriteLine($"Map of size: {map.Size}");
+            Console.WriteLine($"Map of size: {map.SizeX} x {map.SizeY}");
 
             // Test Exist()
             Point inside = new Point(5, 5);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simulator;
 
-internal class Orc : Creature
+public class Orc : Creature
 {
     private int huntSum = 0;
     private int rage = 1;
