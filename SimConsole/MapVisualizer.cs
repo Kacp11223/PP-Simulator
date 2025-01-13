@@ -25,7 +25,6 @@ public class MapVisualizer
 
     private void DrawBorder()
     {
-        // Top border
         Console.Write(Box.TopLeft);
         for (int x = 0; x < _map.SizeX; x++)
         {
@@ -35,13 +34,10 @@ public class MapVisualizer
         }
         Console.WriteLine(Box.TopRight);
 
-        // Map content with borders
         for (int y = _map.SizeY - 1; y >= 0; y--)
         {
-            // Left border
             Console.Write(Box.Vertical);
 
-            // Map content
             for (int x = 0; x < _map.SizeX; x++)
             {
                 var point = new Point(x, y);
@@ -52,22 +48,25 @@ public class MapVisualizer
                     if (objectsAtPoint.Count > 1)
                         Console.Write('X');
                     else
-                        Console.Write(objectsAtPoint[0].GetType().Name[0]);
+                    {
+                        var obj = objectsAtPoint[0];
+                        if (obj is Animals animal)
+                            Console.Write(animal.Symbol);
+                        else
+                            Console.Write(obj.GetType().Name[0]);
+                    }
                 }
                 else if (_map.Exist(point))
                     Console.Write(' ');
                 else
                     Console.Write('N');
 
-                // Vertical borders between cells
                 if (x < _map.SizeX - 1)
                     Console.Write(Box.Vertical);
             }
 
-            // Right border
             Console.WriteLine(Box.Vertical);
 
-            // Horizontal borders between rows
             if (y > 0)
             {
                 Console.Write(Box.MidLeft);
@@ -81,7 +80,6 @@ public class MapVisualizer
             }
         }
 
-        // Bottom border
         Console.Write(Box.BottomLeft);
         for (int x = 0; x < _map.SizeX; x++)
         {
@@ -98,6 +96,8 @@ public class MapVisualizer
         Console.WriteLine("  - puste pole");
         Console.WriteLine("N - pole niedostępne");
         Console.WriteLine("X - pole zajęte przez więcej niż 1 obiekt");
-        Console.WriteLine("Pierwsza litera typu obiektu - pole z 1 obiektem");
+        Console.WriteLine("A - zwykłe zwierzę");
+        Console.WriteLine("B - ptak latający");
+        Console.WriteLine("b - ptak nielot");
     }
 }
