@@ -9,6 +9,9 @@ namespace Simulator.Maps;
 public interface IMappable
 {
     string Name { get; }
+
+    char Symbol { get; }
+
     void SetMap(Map map, Point position);
     string Go(Direction direction);
 }

@@ -66,7 +66,7 @@ public abstract class Map
     {
         return mappableObjects.ContainsKey(position)
             ? new List<IMappable>(mappableObjects[position])
-            : new List<IMappable>();
+            : [];
     }
 
     public List<IMappable> At(int x, int y) => At(new Point(x, y));

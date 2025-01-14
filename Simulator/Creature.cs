@@ -78,4 +78,6 @@ public abstract class Creature : IMappable
     {
         return $"{GetType().Name.ToUpper()}: {Info}";
     }
+
+    public virtual char Symbol => GetType().Name[0];
 }
