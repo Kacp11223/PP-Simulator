@@ -1,0 +1,148 @@
+﻿@page "{index?}"
+@model SimulationModel
+@{
+    ViewData["Title"] = "Symulacja";
+}
+@using Simulator
+@using Simulator.Maps
+<style>
+    body {
+        margin-bottom: 60px;
+        font-family: 'Arial', sans-serif;
+        color: white;
+        background-color: lightgreen;
+    }
+
+    h2 {
+        font-size: 2.5em;
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+    table {
+        border-radius: 10px !important;
+    }
+    table td {
+        background-color: dimgray !important;
+        border: 3px solid white !important;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 20px;
+        font-size: 1.1em;
+    }
+
+    .navigation a {
+        text-decoration: none;
+        font-size: 1.5em;
+        padding: 10px 20px;
+        color: white;
+        background-color: #2980b9;
+        border-radius: 5px;
+        margin: 0 15px;
+        border: none;
+        transition: background-color 0.3s, transform 0.2s ease-in-out;
+    }
+
+    .navigation a:hover {
+        background-color: #1abc9c;
+        transform: scale(1.1);
+    }
+
+    nav {
+        text-transform: uppercase;
+    }
+
+        nav a {
+            color: forestgreen;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+
+            nav a:hover {
+                color: greenyellow;
+            }
+</style>
+<center>
+<h2>Symulacja</h2>
+
+<p><strong>Mapa:</strong> Typ torus</p>
+<p><strong>Sekwencja ruchów:</strong> <span style="font-weight: bold; color: blue;">@Model.Moves</span></p>
+<p>
+    <a asp-page="/Simulation" asp-route-index="@Model.PreviousTurnIndex" style="text-decoration: none; margin-right: 20px; font-size: 38px;">⬅️ Poprzednia</a>
+    <a asp-page="/Simulation" asp-route-index="@Model.NextTurnIndex" style="text-decoration: none; font-size: 38px;">Następna ➡️</a>
+</p>
+
+<table style="border-collapse: collapse; border: 1px solid black; margin: 20px 0;">
+    @for (int y = 0; y < Model.SizeY; y++)
+    {
+        <tr>
+            @for (int x = 0; x < Model.SizeX; x++)
+            {
+                var symbol = Model.GetSymbolAt(x, y);
+                var imagePath = symbol switch
+                {
+                    'O' => "/images/ork.jpg", 
+                    'E' => "/images/elf.jpg", 
+                    'A' => "/images/animal.jpg", 
+                    'B' => "/images/bird_flying.jpg",
+                    'b' => "/images/bird_not_flying.jpg",
+                    'X' => "/images/party.jpg",
+                    _ => null 
+                };
+
+                <td style="width: 60px; height: 60px; text-align: center; border: 1px solid black; background-color: lightgray;">
+                    @if (symbol == 'G')
+                    {
+                        <img src="/images/family.png" alt="Group" style="width: 100%; height: 100%;" />
+                    }
+                    else if (imagePath != null)
+                    {
+                        <img src="@imagePath" alt="@symbol" style="width: 100%; height: 100%;" />
+                    }
+                    else
+                    {
+                        <span>&nbsp;</span>
+                    }
+                </td>
+            }
+        </tr>
+    }
+</table>
+
+    <ul>
+        @if (Model.Items.Count > 0)
+        {
+            var currentItem = Model.Items[Model.CurrentTurn % Model.Items.Count];
+            var position = currentItem.CurrentPosition;
+            var type = currentItem.GetType().Name;
+            var status = currentItem is Birds bird && bird.CanFly ? "fly+" : "fly-";
+            var moveDirection = "";
+            var moveName = Model.Moves[Model.CurrentTurn % Model.Moves.Length]; 
+
+            
+            if (moveName == 'd') moveDirection = "down";  
+            else if (moveName == 'r') moveDirection = "right";  
+            else if (moveName == 'u') moveDirection = "up";  
+            else if (moveName == 'l') moveDirection = "left";  
+
+            <li>
+                <strong>@type:</strong> @currentItem.Name (@status) -
+                @currentItem.Info <span style="font-size: 0.9em; color: gray;"> ⇒ @moveDirection</span>
+            </li>
+        }
+    </ul>
+
+</center>
+<div style="margin-top: 20px;">
+    <h3>Legenda:</h3>
+    <ul>
+        <li><img src="/images/ork.jpg" alt="O" style="width: 30px; height: 30px;"> - Orc</li>
+        <li><img src="/images/elf.jpg" alt="E" style="width: 30px; height: 30px;"> - Elf</li>
+        <li><img src="/images/animal.jpg" alt="A" style="width: 30px; height: 30px;"> - Animal</li>
+        <li><img src="/images/bird_flying.jpg" alt="B" style="width: 30px; height: 30px;"> - Bird (flying)</li>
+        <li><img src="/images/bird_not_flying.jpg" alt="b" style="width: 30px; height: 30px;"> - Bird (not flying)</li>
+        <li><img src="/images/party.jpg" alt="G" style="width: 30px; height: 30px;"> - Group</li>
+    </ul>
+</div>

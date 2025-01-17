@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SimWeb</title>
+    <style>
+        body {
+            margin-bottom: 60px;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            background-color: lightgreen;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            color: darkcyan;
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-radius: 10px !important;
+        }
+
+            table td {
+                background-color: antiquewhite !important;
+                border: 3px solid white !important;
+            }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+
+        .navigation a {
+            text-decoration: none;
+            font-size: 1.5em;
+            padding: 10px 20px;
+            color: white;
+            background-color: goldenrod;
+            border-radius: 5px;
+            margin: 0 15px;
+            border: none;
+            transition: background-color 0.3s, transform 0.2s ease-in-out;
+        }
+
+            .navigation a:hover {
+                background-color: #1abc9c;
+                transform: scale(1.1);
+            }
+        nav {
+            text-transform: uppercase;
+        }
+        nav a {
+            color: forestgreen;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+
+        nav a:hover {
+                color: greenyellow;
+        }
+    </style>
+</head>
+<body><center>
+    <header>
+        <h1>SimWeb</h1>
+        <nav>
+            <a asp-page="/Index">Informacje</a>
+            <a asp-page="/Simulation">Symulacja</a>
+        </nav>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    </center>
+</body>
+</html>
